@@ -13,7 +13,9 @@
                 <el-aside width="200px">
                     <NavMenu/>
                 </el-aside>
-                <el-main></el-main>
+                <el-main>
+                    <router-view/>
+                </el-main>
             </el-container>
         </el-container>
     </div>
