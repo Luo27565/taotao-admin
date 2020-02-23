@@ -14,6 +14,7 @@
                     <NavMenu/>
                 </el-aside>
                 <el-main>
+                    <BreadCrumb v-show='show'/>
                     <router-view/>
                 </el-main>
             </el-container>
@@ -22,10 +23,23 @@
 </template>
 
 <script>
+import {watch, ref} from '@vue/composition-api';
 import NavMenu from '@/components/nav-menu.vue';
+import BreadCrumb from '@/components/bread-crumb.vue';
 export default {
     name:'layout',
-    components:{NavMenu},
+    components:{NavMenu,BreadCrumb},
+       setup(props,{root}){
+       const show = ref(root.$route.path.substr(1)).value==='index'? false : true;
+       return{
+           show
+       }
+    },
+    watch:{
+	    $route(to,from){
+            this.show = this.$route.path.substr(1)==='index'? false : true;
+	    }
+    }
 }
 </script>
 
@@ -35,7 +49,8 @@ export default {
     }
 
     .el-header {
-        background-color: #EEF5F9;
+        background-color: #344a5f;
+        color: #fff;
 
         .header {
             height: 60px;
@@ -50,6 +65,11 @@ export default {
     }
 
     .el-aside {
+        background-color: #EEF5F9;
+    }
+
+    .el-main{
+        padding: 0;
         background-color: #EEF5F9;
     }
 

@@ -1,8 +1,8 @@
 <template>
     <div>
-        <el-menu router :default-active="navMenus[0].path">
+        <el-menu router :default-active="index">
            <template v-for="(item,index) in navMenus">
-               <el-menu-item v-if="!item.meta" :key="index" :index="item.path">
+               <el-menu-item v-if="!item.meta" :key="index" :index="item.children[0].path">
                     <svg class="svg" aria-hidden="true">
                         <use :xlink:href="item.children[0].meta.icon"></use> 
                     </svg>
@@ -28,15 +28,22 @@
 </template>
 
 <script>
-import {reactive} from '@vue/composition-api';
+import {reactive, watch, ref} from '@vue/composition-api';
 export default {
     name:'navMenu',
     setup(props,{root}){
        const navMenus = reactive(root.$router.options.routes).filter(value => !value.hidden);
+       const index = ref(root.$route.path);
        return{
-           navMenus
+           navMenus,
+           index
        }
-    }
+    },
+   watch:{
+	$route(to,from){
+        this.index = this.$route.path;
+	}
+   }
 }
 </script>
 
