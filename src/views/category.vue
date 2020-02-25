@@ -115,7 +115,7 @@ export default {
           beforeClose: (action, instance, done) => {
             if(action === 'confirm'){
               instance.confirmButtonLoading = true;
-              instance.confirmButtonText = '更新中...';
+              instance.confirmButtonText = '添加中...';
               const qs = require('qs');
               const item = qs.stringify({cname:instance.inputValue});
               insertCategory(item).then(
