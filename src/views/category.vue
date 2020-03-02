@@ -23,7 +23,7 @@
               align="center"
               width="150">
                 <template slot-scope="scope">
-                  <el-button type="primary" icon="el-icon-edit" circle @click="editCategory(scope.row)"></el-button>
+                  <el-button type="text" @click="editCategory(scope.row)">编辑</el-button>
                 </template>
               </el-table-column>
             </el-table>
