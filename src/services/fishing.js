@@ -14,3 +14,19 @@ export function countFishing(){
         url:'/CountFishing'
     })
 }
+
+export function openOnSale(data){
+    return service.request({
+        method:'post',
+        url:'/Startspecial',
+        data
+    })
+}
+
+export function closeOnSale(data){
+    return service.request({
+        method:'post',
+        url:'/Stopspecial',
+        data
+    })
+}

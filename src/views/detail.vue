@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="loading">
     
     <div class="seach">
       <el-form :inline="true" size="medium" v-model="search" class="form">
@@ -81,10 +81,10 @@
                   <i class="el-icon-thumb icon"></i>
                   </el-tooltip>
                   <el-tooltip v-if='scope.row.isSpecial===0' content="开启特价" placement="top" effect="light">
-                  <i class="el-icon-turn-off icon"></i>
+                  <i class="el-icon-turn-off icon" @click="startSpecial(scope.row.fid)"></i>
                   </el-tooltip>
                   <el-tooltip v-if='scope.row.isSpecial===1' content="关闭特价" placement="top" effect="light">
-                  <i class="el-icon-open icon"></i>
+                  <i class="el-icon-open icon" @click="stopSpecial(scope.row.fid)"></i>
                   </el-tooltip>
                   <el-tooltip content="编辑" placement="top" effect="light">
                   <i class="el-icon-edit icon"></i>
@@ -112,8 +112,9 @@
 </template>
 
 <script>
+import { setLoading, closeLoading } from '@/utils/loading';
 import {getCategory} from '@/services/category';
-import { countFishing, getFishing } from '@/services/fishing';
+import { countFishing, getFishing, openOnSale, closeOnSale } from '@/services/fishing';
 import { onMounted, reactive, ref } from '@vue/composition-api';
 export default {
     name:'detail',
@@ -176,6 +177,36 @@ export default {
            showFishing(search);
          }
 
+         const startSpecial = value => {
+           const qs = require('qs');
+           const item = qs.stringify({fid:value});
+           const loading = reactive({lock:true,text:'更新中...',background: 'rgba(255, 255, 255, 0.5)',target:'#loading'})
+           openOnSale(item).then(
+             res => {
+               setLoading(loading);
+               if(res.data===1&&res.status===200){
+                 showFishing(search);
+               }
+               setTimeout(() => closeLoading(),1000)
+             }
+           ).catch(error => {})
+         }
+
+         const stopSpecial = value => {
+             const qs = require('qs');
+           const item = qs.stringify({fid:value});
+           const loading = reactive({lock:true,text:'更新中...',background: 'rgba(255, 255, 255, 0.5)',target:'#loading'})
+           closeOnSale(item).then(
+             res => {
+               setLoading(loading);
+               if(res.data===1&&res.status===200){
+                 showFishing(search);
+               }
+               setTimeout(() => closeLoading(),1000)
+             }
+           ).catch(error => {})
+         }
+
 
           onMounted(()=>{
             init();
@@ -188,7 +219,9 @@ export default {
             total,
             handleSizeChange,
             handleCurrentChange,
-            fishing
+            fishing,
+            startSpecial,
+            stopSpecial
           }
      }
 }
