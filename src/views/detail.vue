@@ -78,7 +78,7 @@
                   <i class="el-icon-picture-outline icon" />
                   </el-tooltip>
                   <el-tooltip content="查看详情" placement="top" effect="light">
-                  <i class="el-icon-thumb icon"></i>
+                  <i class="el-icon-thumb icon" @click="viewDetail(scope.row.detail)"></i>
                   </el-tooltip>
                   <el-tooltip v-if='scope.row.isSpecial===0' content="开启特价" placement="top" effect="light">
                   <i class="el-icon-turn-off icon" @click="startSpecial(scope.row.fid)"></i>
@@ -177,6 +177,10 @@ export default {
            showFishing(search);
          }
 
+         const viewDetail = value => {
+           console.log(value)
+         }
+
          const startSpecial = value => {
            const qs = require('qs');
            const item = qs.stringify({fid:value});
@@ -193,7 +197,7 @@ export default {
          }
 
          const stopSpecial = value => {
-             const qs = require('qs');
+           const qs = require('qs');
            const item = qs.stringify({fid:value});
            const loading = reactive({lock:true,text:'更新中...',background: 'rgba(255, 255, 255, 0.5)',target:'#loading'})
            closeOnSale(item).then(
@@ -220,6 +224,7 @@ export default {
             handleSizeChange,
             handleCurrentChange,
             fishing,
+            viewDetail,
             startSpecial,
             stopSpecial
           }

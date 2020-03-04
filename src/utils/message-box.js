@@ -1,9 +1,12 @@
-export function openMessageByPrompt(root,message,title,data){
-    root.$prompt(message,title,data).then(() => {
+import {MessageBox}  from 'element-ui';
+import { Message } from 'element-ui';
+
+export function openMessageByPrompt(message,title,data){
+    MessageBox.prompt(message,title,data).then(() => {
       }).catch(() => {   
       });
 }
 
-export function openMessageByMessage(root,data){
-  root.$message(data);
+export function openMessageByMessage(data){
+    Message(data);
 }

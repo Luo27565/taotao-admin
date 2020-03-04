@@ -77,7 +77,7 @@ export default {
                           type:'success',
                           message: '更新成功'
                         });
-                        openMessageByMessage(root,mes);
+                        openMessageByMessage(mes);
                       }, 300);
                     }, 1000);
                   }else{
@@ -89,7 +89,7 @@ export default {
                           type:'error',
                           message: '更新失败'
                         });
-                        openMessageByMessage(root,mes);
+                        openMessageByMessage(mes);
                       }, 300);
                     }, 1000);
                   }
@@ -100,7 +100,7 @@ export default {
             }
           } 
          })
-         openMessageByPrompt(root,message.value,title.value,data);
+         openMessageByPrompt(message.value,title.value,data);
        }
 
       // 添加种类
@@ -130,7 +130,7 @@ export default {
                           type:'success',
                           message: '添加成功'
                         });
-                        openMessageByMessage(root,mes);
+                        openMessageByMessage(mes);
                       }, 300);
                     }, 1000);
                   }else{
@@ -142,7 +142,7 @@ export default {
                           type:'error',
                           message: '添加失败'
                         });
-                        openMessageByMessage(root,mes);
+                        openMessageByMessage(mes);
                       }, 300);
                     }, 1000);
                   }
@@ -153,7 +153,7 @@ export default {
             }
           }
          })
-         openMessageByPrompt(root,message.value,title.value,data);
+         openMessageByPrompt(message.value,title.value,data);
       }
 
        onMounted(()=>{
